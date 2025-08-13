@@ -94,6 +94,7 @@ Restart=always
 10) Перезапустил юниты и сервис:
 ```bash
 sudo systemctl daemon-reload
+```
 ```bash
 sudo systemctl restart myapp.service
 ```
