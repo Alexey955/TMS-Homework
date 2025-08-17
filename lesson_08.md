@@ -120,4 +120,50 @@
    =
    11000000.10101000.01100100.00000000 (192.168.100.0)
    ```
+# Задание 3
+1) Добавил сетевые устройства и физические кабельные соединения между устройствами
+   <img width="786" height="401" alt="image" src="https://github.com/user-attachments/assets/b2f15264-1052-4003-9957-d133013aeec4" />
+   <img width="1091" height="132" alt="image" src="https://github.com/user-attachments/assets/b90bef6f-6125-4d45-bc28-a452f3d116fb" />
 
+2) Создал беспроводную сеть на маршрутизаторе беспроводной связи
+   <img width="963" height="408" alt="image" src="https://github.com/user-attachments/assets/17a62954-b9f8-473b-8cff-1f4c241c122c" />
+
+3) Настроил подключение к Интернету на маршрутизаторе беспроводной связи
+   <img width="963" height="843" alt="image" src="https://github.com/user-attachments/assets/8f4bd8be-4c68-4b03-ab7d-38f6abc674c8" />
+
+4) На ноутбуке заменил модуль медного провода Ethernet на модуль беспроводной связи Wireless WPC300N
+5) Подключил ноутбук к беспроводной сети
+
+   <img width="589" height="543" alt="image" src="https://github.com/user-attachments/assets/624c58d2-d58e-43db-b3d8-7c6454866c35" />
+
+6) Настроил подключение к проводной сети на ПК
+   <img width="690" height="271" alt="image" src="https://github.com/user-attachments/assets/13acf00c-a707-43cb-b3f6-ed03bb7f743b" />
+   <img width="580" height="295" alt="image" src="https://github.com/user-attachments/assets/c2e91bfb-8082-4f97-a017-7ccaf3c467a3" />
+
+7) Добавил сетевой модуль PT-CLOUD-NM-1CFE для облака Интернета
+8) Определил тип поставщика для облака Интернета
+    
+   <img width="542" height="372" alt="image" src="https://github.com/user-attachments/assets/e4fad11e-711b-4e95-b700-99f4003c1992" />
+
+9) Определил выходной и входной порты для облака Интернета
+    <img width="664" height="198" alt="image" src="https://github.com/user-attachments/assets/3b5f4890-ff6f-4a94-ba5a-01554f3125fb" />
+
+10) Настроил сервер Cisco.com в качестве сервера DHCP
+    <img width="666" height="460" alt="image" src="https://github.com/user-attachments/assets/d9070812-0b64-4e79-978d-73acb75b1fda" />
+
+11) Настроил сервер Cisco.com в качестве сервера DNS
+    <img width="667" height="355" alt="image" src="https://github.com/user-attachments/assets/57e40734-4e73-41db-995a-603b899cd6cc" />
+
+12) Задал глобальные настройки сервера Cisco.com
+    <img width="666" height="280" alt="image" src="https://github.com/user-attachments/assets/ac3ea4dd-7d44-47ef-bae7-543139b647a5" />
+
+13) Задал настройки интерфейса FastEthernet0 сервера Cisco.com
+    <img width="673" height="257" alt="image" src="https://github.com/user-attachments/assets/16844775-679b-4f86-93eb-60d266cf046f" />
+
+14) Убедился, что ПК получает конфигурационные данные IPv4 от DHCP
+
+    <img width="419" height="214" alt="image" src="https://github.com/user-attachments/assets/0ded0608-69f6-409b-b9d8-a291d1b45557" />
+
+15) Проверил подключение к серверу Cisco.com с ПК
+
+    <img width="454" height="216" alt="image" src="https://github.com/user-attachments/assets/f1aa2f43-f494-41ff-92e1-7a2586ac14ee" />
