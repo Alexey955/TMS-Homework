@@ -55,8 +55,26 @@
     
     <img width="760" height="598" alt="image" src="https://github.com/user-attachments/assets/dfb14db2-6269-45f7-b54b-4c4ad6d48aca" />
 
+## Задание 2
+1) Узнал текущий размер файловой системы:
 
+   <img width="974" height="228" alt="image" src="https://github.com/user-attachments/assets/5e802627-798e-42ff-9135-f9a449f4c554" />
 
-```bash
+2) Выключил ВМ.
+3) Перешел в "Менеджер виртуальных носителей".
+4) Выбрал жесткий диск и увеличил размер файловой системы на 5 ГБ:
 
-```
+   <img width="755" height="301" alt="image" src="https://github.com/user-attachments/assets/5ee65035-f6e9-4f38-8270-8e35f097691a" />
+
+5) Включил ВМ.
+6) Расширил раздел:
+
+   <img width="964" height="49" alt="image" src="https://github.com/user-attachments/assets/69e7b5e0-889a-4aa7-a203-09f69551cfdb" />
+
+7) Расширил файловую систему:
+
+   <img width="685" height="121" alt="image" src="https://github.com/user-attachments/assets/c398e3ad-e427-4342-9f04-6bcdafc3e7a5" />
+
+8) Проверил что файловая система увеличена до нужного размера:
+
+   <img width="771" height="181" alt="image" src="https://github.com/user-attachments/assets/ea4c5a70-3826-463d-8c36-7c36fb03de2e" />
