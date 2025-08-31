@@ -77,7 +77,7 @@
 
    # Check if FILE_OUTPUT exists
    if [ -f "$FILE_OUTPUT" ]; then
-     $(rm "$FILE_OUTPUT")
+     rm "$FILE_OUTPUT"
    fi
 
    # Find files and put in array
@@ -103,5 +103,54 @@
 
    <img width="1099" height="136" alt="image" src="https://github.com/user-attachments/assets/9c9102a8-f0f3-44fd-b7e1-a87cd6ea8e2f" />
 
+## Задание 5
+1) Создал каталоги и файлы:
 
-   
+   <img width="542" height="539" alt="image" src="https://github.com/user-attachments/assets/01c664c1-1a15-4cf9-9a4c-832b90580fbf" />
+
+2) Создал скрипт show-sizes-and-rules-for-files.sh:
+
+   ```bash
+   set -u
+
+   # Check args length
+   if [ ${#} -ne 1 ]; then
+     echo "Usage: ${0} folder"
+     exit 1
+   fi
+
+   # Check if folder
+   if [ ! -d ${1} ]; then
+     echo "Error: it isn't a folder"
+     exit 1
+   fi
+
+   FILE_OUTPUT="file-out.txt"
+
+   # Check if file output exists
+   if [ -f $FILE_OUTPUT ]; then
+     rm $FILE_OUTPUT
+   fi
+
+   FOLDER_TO_SEARCH="$1"
+
+   # Find files and put in array
+   files_arr=($(find "$FOLDER_TO_SEARCH" -type f))
+
+   # Print rules, sizes and filenames to file
+   for file in ${files_arr[@]}; do
+     ls -lh ${file} | awk '{print $1,"\t"$5,"\t"$9}' >> $FILE_OUTPUT
+   done
+   ```
+
+3) Запустил скрипт 1й раз:
+
+   <img width="848" height="91" alt="image" src="https://github.com/user-attachments/assets/75a480c0-3608-4436-b0bb-34f657efd7f5" />
+
+4) Запустил скрипт 2й раз:
+
+   <img width="1042" height="90" alt="image" src="https://github.com/user-attachments/assets/09a81d8d-f1f9-4ed2-8889-0309e923a649" />
+
+5) Запустил скрипт 3й раз:
+
+   <img width="952" height="289" alt="image" src="https://github.com/user-attachments/assets/3d13d143-2bd2-482f-b194-0e0cb03747aa" />
