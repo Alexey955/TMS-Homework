@@ -55,3 +55,53 @@
 
    <img width="552" height="47" alt="image" src="https://github.com/user-attachments/assets/220e5bca-52a8-49e7-919c-aaf1883e439b" />
 
+## Задание 4
+1) Создал каталоги и файлы:
+
+   <img width="545" height="409" alt="image" src="https://github.com/user-attachments/assets/62eda97e-7165-4bb6-8dd6-642802ba8f10" />
+
+2) Создал скрипт print-filenames-with-ext-to-file.sh:
+
+   ```bash
+   set -u
+
+   # Check args length
+   if [ ${#} -ne 3 ]; then
+     echo "Usage: ${0} file folder extention"
+     exit 1
+   fi
+
+   FILE_OUTPUT="$1"
+   FOLDER_TO_SEARCH="$2"
+   EXTENSION_TO_SEARCH="$3"
+
+   # Check if FILE_OUTPUT exists
+   if [ -f "$FILE_OUTPUT" ]; then
+     $(rm "$FILE_OUTPUT")
+   fi
+
+   # Find files and put in array
+   files_with_path_arr=($(find $FOLDER_TO_SEARCH -maxdepth 1 -name "*.${EXTENSION_TO_SEARCH}"))
+
+   # Print filenames without paths to file
+   counter=0
+   for path in ${files_with_path_arr[@]}; do
+     $(basename "$path" >> "$FILE_OUTPUT")
+     ((counter++))
+   done
+   ```
+
+3) Запустил скрипт 1й раз:
+
+   <img width="1069" height="92" alt="image" src="https://github.com/user-attachments/assets/a26bf941-38cf-48bc-a6e8-f859f8c0b6d6" />
+
+4) Запустил скрипт 2й раз:
+
+   <img width="1116" height="136" alt="image" src="https://github.com/user-attachments/assets/ec35e3a2-712d-46ee-ab82-8a98f6182ceb" />
+
+5) Запустил скрипт 3й раз:
+
+   <img width="1099" height="136" alt="image" src="https://github.com/user-attachments/assets/9c9102a8-f0f3-44fd-b7e1-a87cd6ea8e2f" />
+
+
+   
