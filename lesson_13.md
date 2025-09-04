@@ -133,3 +133,29 @@
 6) Выполнил скрипт:
 
    <img width="893" height="451" alt="image" src="https://github.com/user-attachments/assets/6c198fd1-3807-403f-b2b4-7a63c9e962f3" />
+
+## Задание 3
+1) Создал text_file.txt:
+   
+   ```text
+   Довольно распространённая ошибка ошибка - это лишний повтор повтор слова  слова. Смешно, не правда ли? Не нужно портить хор хоровод.
+   ```
+
+2) Сделал скрипт erase-dublicates.sh:
+
+   ```bash
+   FILE_FOR_SEARCH="$1"
+
+   # Check if file exists
+   if [ ! -f "${FILE_FOR_SEARCH}" ]; then
+     echo "Usage: $0 file"
+     exit 1
+   fi
+
+   # Print text without dublicates t cli
+   echo "$(sed -E 's/\b(\w+)\s+\1\b/\1/g' "$FILE_FOR_SEARCH")"
+   ```
+
+3) Запустил скрипт:
+
+   <img width="1118" height="48" alt="image" src="https://github.com/user-attachments/assets/0dc0d52c-7ef3-4a7b-9653-f9fa11988e9e" />
