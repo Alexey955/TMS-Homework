@@ -59,3 +59,110 @@
 7) Запустил скрипт в **подробном режиме**:
 
    <img width="572" height="114" alt="image" src="https://github.com/user-attachments/assets/cd586578-0cd4-4baa-a42f-94813eca1656" />
+
+## Задание 2
+1) Создал файл users:
+
+   ```text
+   user30 it
+   user31 users
+   user32 it
+   user33 group33
+   user34 it
+   user35 users
+   ```
+
+2) Сделал скрипт myscript.sh:
+
+   ```bash
+   #!/usr/bin/env bash
+
+   set -ue
+   set -o pipefail
+
+   # Checking root permissions
+   if [ "$(id -u)" != 0 ]; then
+     echo "root permissions required"
+     exit 1
+   fi
+
+   # Variables
+   file="users"
+   shell="/sbin/nologin"
+   oldIFS="$IFS"
+
+   # Functions
+   create_user() {
+
+     # Restore IFS
+     IFS="$oldIFS"
+
+     # Create group if doesn't exist
+     if ! grep -o "^${group}:x:" /etc/group &>/dev/null; then
+       groupadd "$group"
+     fi
+
+     # Sudoers
+     if [ "$group" = "it" ] || [ "$group" = "security" ]; then
+       if ! grep "%$group" /etc/sudoers; then
+         cp /etc/sudoers{,.bkp}
+         echo '%'$group' ALL=(ALL) ALL' >> /etc/sudoers
+       fi
+     shell=/bin/bash
+     elif [ "$user" = "admin" ]; then
+       if ! grep "$user" /etc/sudoers; then
+         cp /etc/sudoers{,.bkp}
+         echo $user' ALL=(ALL) ALL' >> /etc/sudoers
+       fi
+       shell=/bin/bash
+     fi
+
+     # Create dir if doesn't exist
+     if [ ! -d "/home/$group" ]; then
+       mkdir /home/$group
+     fi
+
+     # Create user if doesn't exist
+     if ! grep -o "^${user}:x:" /etc/passwd &>/dev/null; then
+       useradd $user -g $group -b /home/$group -s $shell
+     fi
+   }
+
+   # Check parameters
+   if [ ${#} -eq 2 ]; then
+     user=$1
+     group=$2
+     echo "Username: ${user}; Group: ${group}"
+     create_user
+   elif [ -f $file ]; then
+     IFS=$'\n'
+     for line in $(cat $file); do
+       user=$(echo $line | cut -d' ' -f1)
+       group=$(echo $line | cut -d' ' -f2)
+       echo "Username: ${user}; Group: ${group}"
+       create_user
+     done
+   else
+     echo "Welcome!"
+     select option in "Add user" "Show users" "Exit"; do
+       case $option in
+         "Add user")
+           read -p "Print username: " user
+           read -p "Print groupname: " group
+           create_user ;;
+         "Show users") tail -n 10 /etc/passwd ;;
+         "Exit") break ;;
+         *) echo "Wrong option" ;;
+       esac
+     done
+   create_user
+   fi
+   ```
+
+3) Запустил скрипт 1й раз:
+
+   <img width="710" height="397" alt="image" src="https://github.com/user-attachments/assets/6db7dbf5-9741-41f3-966b-0c4934029d86" />
+
+4) Удалил файл users и запустил скрипт 2й раз:
+
+   <img width="698" height="346" alt="image" src="https://github.com/user-attachments/assets/e22592ab-7288-42b8-b5e7-26d398660b55" />
