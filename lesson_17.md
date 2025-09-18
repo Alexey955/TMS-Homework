@@ -28,6 +28,10 @@
 5) Сделал скрипт fill_db_med_center.sh для создания БД, таблиц и генерации данных:
 
    ```bash
+   #!/usr/bin/env bash
+
+   set -ueo pipefail
+   
    # Проверка наличия sudo
    if [ $(id -u) -ne 0 ]; then
      echo "Error: need sudo"
@@ -133,3 +137,108 @@
 7) Выполнил запрос на получение названий и цен всех анализов, которые продавались 5 февраля 2020 и всю следующую неделю:
 
    <img width="1200" height="772" alt="image" src="https://github.com/user-attachments/assets/3e664ae1-aacb-498a-bb12-2e7c8be1144e" />
+
+## Задание 3
+2) Сделал скрипт db_bkp.sh:
+
+   ```bash
+   #!/usr/bin/env bash
+   
+   set -ueo pipefail
+   
+   # Проверка наличия sudo
+   if [ $(id -u) -ne 0 ]; then
+     echo "Error: need sudo."
+     exit 1
+   fi
+   
+   if [ $# -ne 3 ]; then
+     echo "Usage 01: $0 --create database folder"
+     echo "Usage 02: $0 --recover database file.sql"
+     exit 1
+   fi
+   
+   FLAG="$1"
+   DATABASE="$2"
+   SQL_DEFS="--defaults-file=/etc/mysql/debian.cnf"
+   
+   case $FLAG in
+     "--create")
+       # Проверка наличия каталога
+       if [ ! -d "$3" ]; then
+         echo "Error: folder $2 doesn't exist."
+         exit 1
+       fi
+       # Проверка Наличия БД
+       if ! mysql ${SQL_DEFS} -e "show databases;" | grep $2 &>/dev/null; then
+         echo "Error: Database doesn't exist."
+         exit 1
+       fi
+       TIMESTAMP=$( date +"%Y-%m-%d_%H-%M-%S")
+       mysqldump "${SQL_DEFS}" "$DATABASE" > "${3}/${DATABASE}_${TIMESTAMP}.sql"
+       echo "Backup ${DATABASE}_${TIMESTAMP}.sql for database $DATABASE created."
+       sudo -u vboxuser scp "${3}/${DATABASE}_${TIMESTAMP}.sql" vboxuser@192.168.1.112:/home/vboxuser/tms-homework/lesson_17/task_03/
+       echo "Backup is copied to 192.168.1.112:/home/vboxuser/tms-homework/lesson_17/task_03/${DATABASE}_${TIMESTAMP}.sql"
+     ;;
+     "--recover")
+       # Проверка наличия файла
+       if [ ! -f "$3" ]; then
+         echo "Error: file.sql $2 doesn't exist."
+         exit 1
+       fi
+       # Проверка Наличия БД
+       if ! mysql ${SQL_DEFS} -e "show databases;" | grep $2 &>/dev/null; then
+         mysql "${SQL_DEFS}" "$DATABASE" < "$3"
+         echo "Database ${DATABASE} recovery completed."
+         exit 0
+       else
+         mysql "${SQL_DEFS}" -e "drop database ${DATABASE};"
+         echo "Database ${DATABASE} is dropped."
+         mysql "${SQL_DEFS}" -e "create database ${DATABASE};"
+         echo "Database ${DATABASE} is created."
+         mysql "${SQL_DEFS}" ${DATABASE} < $3
+         echo "Database ${DATABASE} recovery completed."
+       fi
+       ;;
+     *)
+       echo "Usage 01: $0 --create database folder"
+       echo "Usage 02: $0 --recover database file.sql"
+       exit 1
+     ;;
+   esac
+   ```
+
+2) Запустил скрипт для создания бэкапа:
+
+   ```bash
+   sudo bash db_bkp.sh --create medical_center /home/vboxuser/tms-homework/lesson_17/task_03
+   ```
+   На первой машине:
+   <img width="2119" height="981" alt="image" src="https://github.com/user-attachments/assets/9633a548-6e02-47f0-b985-6571e9ace4d6" />
+
+   На второй машине:
+   <img width="1605" height="813" alt="image" src="https://github.com/user-attachments/assets/093f062c-df25-4c8d-b3a8-0358eb0bc0be" />
+
+3) Удалил таблицу orders и создал таблицу table_new:
+
+   <img width="1106" height="431" alt="image" src="https://github.com/user-attachments/assets/670b3c6b-9bb6-4539-b316-c435899c582c" />
+
+4) Запустил скрипт для восстановления из бэкапа:
+
+   ```bash
+   sudo bash db_bkp.sh --recover medical_center /home/vboxuser/tms-homework/lesson_17/task_03/medical_center_2025-09-18_10-33-52.sql
+   ```
+
+   <img width="2163" height="140" alt="image" src="https://github.com/user-attachments/assets/96dda8cf-873d-4311-9c29-38d10f98da9d" />
+   <img width="821" height="964" alt="image" src="https://github.com/user-attachments/assets/57f6e2bb-2e74-4160-8321-8e9cbb040c27" />
+
+5) Добавил выполнение бэкапов в cron:
+
+   ```text
+   */5 * * * * /usr/bin/bash /home/vboxuser/tms-homework/lesson_17/task_03/db_bkp.sh --create medical_center /home/vboxuser/tms-homework/lesson_17/task_03
+   ```
+   На первой машине:
+   <img width="1625" height="981" alt="image" src="https://github.com/user-attachments/assets/d8b2378e-5bce-43d4-b2e9-1d8657b592e3" />
+
+   На второй машине:
+   <img width="1621" height="924" alt="image" src="https://github.com/user-attachments/assets/ad2d8d23-f06a-47e9-9317-c26781fe9f90" />
