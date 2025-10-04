@@ -72,6 +72,9 @@
    ```bash
    curl -Lo dive.deb "https://github.com/wagoodman/dive/releases/latest/download/dive_${DIVE_VERSION}_linux_amd64.deb"
    ```
+   ```bash
+   sudo apt install -y ./dive.deb
+   ```
    <img width="1032" height="56" alt="image" src="https://github.com/user-attachments/assets/e7d9ea4f-7f7b-4c2d-a4ea-b02feb96cd41" />
 
 4) Определил слой, который занимает больше всего места:
