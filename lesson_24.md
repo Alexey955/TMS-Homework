@@ -265,7 +265,7 @@
 8) Создал и запустил контейнеры:
 
    ```bash
-   docker-compose up -d
+   docker-compose -p tms-lesson-24 up -d
    ```
    <img width="2158" height="445" alt="image" src="https://github.com/user-attachments/assets/fa90e625-52db-4ab8-925f-bf23a161c9b8" />
 
