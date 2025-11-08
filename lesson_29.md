@@ -32,14 +32,14 @@
    ```
 
    <img width="1694" height="219" alt="image" src="https://github.com/user-attachments/assets/7776eb4d-b10a-4623-873e-e2ab383322f7" />
-
-5) Сгенерировал Токен API:
+5) Установил плагин "Telegram Bot".
+6) Сгенерировал Токен API:
    ```text
    Jenkins -> Пользователь -> Security -> Токен API
    ```
    <img width="1078" height="284" alt="image" src="https://github.com/user-attachments/assets/bbee7a1e-72e5-4351-b7c5-4b6b7c3592d0" />
 
-6) Настроил выполнение команд docker-compose для пользователя jenkins:
+7) Настроил выполнение команд docker-compose для пользователя jenkins:
 
    Добьавил пользователя jenkins в группу docker
    ```bash
@@ -72,8 +72,8 @@
    sudo systemctl restart jenkins
    ```
 
-7) Создал pipeline в GitHub ([ссылка](https://github.com/Alexey955/TMS-Homework-29/blob/main/Jenkinsfile))
-8) Создал pipeline **TMS-HW-29_Compose** в Jenkins:
+8) Создал pipeline в GitHub ([ссылка](https://github.com/Alexey955/TMS-Homework-29/blob/main/Jenkinsfile))
+9) Создал pipeline **TMS-HW-29_Compose** в Jenkins:
    ```text
    Item: Pipeline
    
@@ -88,7 +88,7 @@
    
    Branch Specifier (blank for 'any'): */main
    ```
-9) Создал файл **.env** с кредами:
+10) Создал файл **.env** с кредами:
 
     ```text
     TELEGRAM_BOT_TOKEN="xxx"
@@ -97,7 +97,7 @@
     JENKINS_TOKEN="xxx"
     JOB_NAME="TMS-HW-29_Compose"
 
-10) Создал файл **tm_bot.py** с кодом Telegram-бота:
+11) Создал файл **tm_bot.py** с кодом Telegram-бота:
     ```python
     import requests
     import telegram
@@ -175,7 +175,7 @@
         main()
     ```
 
-11) Создал файл **Dockerfile** для контейнеризации tm_bot.py:
+12) Создал файл **Dockerfile** для контейнеризации tm_bot.py:
     ```dockerfile
     FROM python:3.12-slim
     WORKDIR /app
@@ -184,7 +184,7 @@
     ENTRYPOINT ["python3", "tm_bot.py"]
     ```
 
-12) Создал файл **docker-compose.yaml** для tm_bot.py:
+13) Создал файл **docker-compose.yaml** для tm_bot.py:
     ```yaml
     services:
       tm_bot_py:
@@ -196,18 +196,18 @@
           - .env
     ```
 
-13) Создал и запустил контейнер с Telegram-bot:
+14) Создал и запустил контейнер с Telegram-bot:
     ```bash
     docker-compose -p tm_bot_py up -d
     ```
     <img width="1629" height="109" alt="image" src="https://github.com/user-attachments/assets/5986ac73-7082-4178-b2b2-612ccc04d7ef" />
 
-14) Выбрал в чате "❓ 01. Docker compose ps":
+15) Выбрал в чате "❓ 01. Docker compose ps":
 
     <img width="464" height="303" alt="image" src="https://github.com/user-attachments/assets/b2923ef4-4d5c-4a6b-9eff-7b2dd50ee90e" />
     <img width="535" height="256" alt="image" src="https://github.com/user-attachments/assets/0a56ecb0-de7c-4a53-a51c-1f3bc120fb8e" />
 
-15) Выбрал в чате "🚀 02. Docker compose start":
+16) Выбрал в чате "🚀 02. Docker compose start":
 
     <img width="495" height="253" alt="image" src="https://github.com/user-attachments/assets/b29c0ddc-7652-4fe1-81e8-6d3bfd90e8d5" />
     <img width="2285" height="168" alt="image" src="https://github.com/user-attachments/assets/5810155d-2d1e-4376-95e7-2faf68831d8c" />
